@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body ng-app='dataList' ng-controller='dataListCtrl'>
+  <angled-datalist list='browsers' ng-model='browser'></angled-datalist>
+  <div class='well'>
+    Choosen: {{browser}}
+  </div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.6.5/angular-sanitize.min.js"></script>
+<script type="text/javascript">
+	angular.module('dataList',['ngSanitize'])
+
+.controller('dataListCtrl',['$scope',function($scope){
+  $scope.browsers = [
+    {
+      option : 'Google Chrome',
+      value : 'chrome'
+    },
+    {
+      option : 'Microsoft Internet Explorer',
+      value : 'ie'
+    },
+    {
+      option : 'Mozilla Firefox',
+      value : 'firefox'
+    },
+    {
+      option : 'Opera',
+      value : 'opera'
+    },
+    {
+      option : 'Safari',
+      value : 'safari'
+    },{
+      option : 'Google Chrome',
+      value : 'chrome'
+    },
+    {
+      option : 'Microsoft Internet Explorer',
+      value : 'ie'
+    },
+    {
+      option : 'Mozilla Firefox',
+      value : 'firefox'
+    },
+    {
+      option : 'Opera',
+      value : 'opera'
+    },
+    {
+      option : 'Safari',
+      value : 'safari'
+    }
+  ];
+  
+  $scope.browser = '';
+}]) // end dataListCtrl
+
+.directive('angledDatalist',['$sce',function($sce){
+  return{
+    restrict : 'AE',
+    require : '?ngModel',
+    template : '<ng-form name="dlTest"><input list="dl" ng-model="choosen" cloudflare="form-group"><datalist id="dl"><select><option ng-repeat="opt in list" label="{{opt.option}}">{{opt.value}}</option></select></datalist></ng-form>',
+    replace : false,
+    scope : {
+      list : '='
+    },
+    link : function(scope,element,attrs,ngModel){
+      if(!ngModel || (scope.list.length <= 0)) return;
+      
+      scope.choosen = '';
+      
+      scope.$watch('choosen',function(val,old){
+        ngModel.$setViewValue(val);
+      });
+    }
+  }; // return
+}]); // end angledDatalist
+</script>
+</body>
+</html>

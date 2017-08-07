@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body ng-app="app">
+<div ng-app="myapp1" ng-controller="cntryController">
+    <input list="testList" type="" ng-model="SelectedDoctor" ng-change="LoadSessionData(SelectedDoctor)" />
+    <datalist id="testList">
+        <option ng-repeat="x1 in names" value="{{x1.drname}}">
+    </datalist>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+<script type="text/javascript">
+	var app=angular.module('app',[]);
+    app.controller('cntryController',function ($scope) {
+//data for ng-repeat
+    $scope.names=[{'drname':'Dr.Test1'},{'drname':'Dr.Test2'},{'drname':'Dr.Test3'},{'drname':'Dr.Test1'},{'drname':'Dr.Test2'},{'drname':'Dr.Test3'}]
+    $scope.LoadSessionData = function(val) {
+//console log
+        console.log(val);
+    }
+});
+</script>
+</body>
+</html>

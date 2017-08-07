@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+
+<div ng-app="autocompleteApp">
+  Autocomplete:
+	<br>
+	<div ng-controller="autocompleteController">
+		<input type="text" ui-autocomplete="autocompleteOptions">
+	</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.3/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
+ <!-- <script src="ui/angular-ui.min.js"></script> -->
+<script>
+var autocompleteApp = angular.module("autocompleteApp",[]);
+var autocompleteController = function($scope) {
+  //http://jqueryui.com/autocomplete/
+	var availableTags = [
+		  "ActionScript",
+		  "AppleScript",
+		  "Asp",
+		  "BASIC",
+		  "C",
+		  "C++",
+		  "Clojure",
+		  "COBOL",
+		  "ColdFusion",
+		  "Erlang",
+		  "Fortran",
+		  "Groovy",
+		  "Haskell",
+		  "Java",
+		  "JavaScript",
+		  "Lisp",
+		  "Perl",
+		  "PHP",
+		  "Python",
+		  "Ruby",
+		  "Scala",
+		  "Scheme"
+	];
+	$scope.autocompleteOptions = {
+		source: availableTags
+	}
+}
+autocompleteApp.config('ui.config', {
+    autocomplete: {
+        minLength: 2,
+        delay: 500
+    }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" /> 
+		<script type="text/javascript" src="http://code.jquery.com/jquery-3.2.1.js"></script> 
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>  
+           
+</head>
+<body ng-app="app">
+
+<div ng-controller="autoCompleteController">
+	<input type="text" name="" auto-complete-directive url={{url}}>
+</div>
+
+<script type="text/javascript">
+	var app=angular.module("app",[])
+	.controller("autoCompleteController",function ($scope){
+		$scope.url="http://www.filltext.com/?rows=10&fname={firstName}&lname={lastName}&tel={phone|format}&address={streetAddress}&city={city}&state={usState|abbr}&zip={zip}&pretty=true"
+	})
+	.directive("autoCompleteDirective",function ($http){
+		return {
+			scope:{
+				url:'@'
+			},
+			link:function (scope,ele,attr){
+				ele.autocomplete({
+					source:function (request,response){
+						$http({
+							method:'GET',
+							url:scope.url,
+						}).success(function (data){
+							response($.map(data, function (value, key) {
+						                return {
+						                    label: value.fname,
+						                    value: value.lname
+						                }
+						            }))
+							
+						})
+					},
+					minLength:1
+				})
+			}
+		}
+	})
+</script>
+</body>
+</html>
